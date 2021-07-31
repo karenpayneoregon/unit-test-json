@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 using ConfigurationHelper;
 using ContainerLibrary.Classes;
@@ -69,11 +70,10 @@ namespace JsonTestProject
             var json = File.ReadAllText(ReadFileName);
             List<Customer> customers = json.JSonToList<Customer>();
             Assert.AreEqual(customers.Count, 50);
-
         }
 
         /// <summary>
-        /// 
+        /// Demo for deserializing unix epoch date
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -154,9 +154,23 @@ namespace JsonTestProject
 
         }
 
-    
+        /// <summary>
+        /// Allow comments and trailing commas
+        /// https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-invalid-json?pivots=dotnet-5-0#allow-comments-and-trailing-commas
+        /// </summary>
+        [TestMethod]
+        public void IgnoreCommentsInJson()
+        {
+            var jsonString = File.ReadAllText(WeatherFileName); ;
+            var options = new JsonSerializerOptions
+            {
+                ReadCommentHandling = JsonCommentHandling.Skip,
+                AllowTrailingCommas = true,
+            };
+            var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, options);
+            Assert.IsTrue(weatherForecast.Summary == "Hot");
+        }
 
     }
-
 }
 

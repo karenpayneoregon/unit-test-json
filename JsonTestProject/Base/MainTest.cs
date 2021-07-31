@@ -34,6 +34,7 @@ namespace JsonTestProject
         /// File used for PowerShell operations
         /// </summary>
         public string ComputerDetailsFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "computerDateInfo.json");
+        public string WeatherFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Weather.json");
 
         /// <summary>
         /// Validate connection string in <see cref="ConnectionStringTest"/>
