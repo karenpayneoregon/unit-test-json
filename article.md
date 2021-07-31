@@ -130,7 +130,7 @@ public string WeatherFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirecto
 ```
 
 
-## Serialing/deserializing test methods
+## Serializing/deserializing test methods
 
 TODO
 
