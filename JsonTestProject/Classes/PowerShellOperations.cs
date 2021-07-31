@@ -16,11 +16,17 @@ namespace JsonTestProject.Classes
         public static async Task<DateContainer> GetPartialComputerInformationTask(string fileName)
         {
 
+            var argument = 
+                "Get-ComputerInfo | " + 
+                "select BiosReleaseDate,OsLocalDateTime,OsLastBootUpTime,OsUptime | " +
+                "ConvertTo-Json";
+
+
             var start = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
                 RedirectStandardOutput = true,
-                Arguments = "Get-ComputerInfo | select BiosReleaseDate,OsLocalDateTime,OsLastBootUpTime,OsUptime | ConvertTo-Json",
+                Arguments = argument,
                 CreateNoWindow = true
             };
 

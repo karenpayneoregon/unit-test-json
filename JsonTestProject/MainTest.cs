@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ConfigurationHelper;
 using ContainerLibrary.Classes;
@@ -49,7 +51,7 @@ namespace JsonTestProject
             var json = File.ReadAllText(ReadFileName);
             List<Customer> customers = json.JSonToList<Customer>();
 
-            var singleCustomer = customers.FirstOrDefault(customer => customer.CustomerIdentifier == 2);
+            var singleCustomer = customers.FirstOrDefault(customer => customer.Identifier == 2);
 
 
             singleCustomer.CompanyName = singleCustomer.CompanyName.ToLower();
@@ -75,6 +77,7 @@ namespace JsonTestProject
         /// </summary>
         /// <returns></returns>
         /// <remarks>
+        /// This test is slow and can only be faster by mocking data.
         /// Get-ComputerInfo | select BiosReleaseDate,OsLocalDateTime,OsLastBootUpTime,OsUptime
         /// </remarks>
         [TestMethod]
@@ -91,9 +94,11 @@ namespace JsonTestProject
                 Assert.Fail($"Expected no exception, with : {ex.Message}");
             }
 
-
         }
 
+        /// <summary>
+        /// This test does not use System.Text.Json, instead Microsoft.Extensions.Configuration
+        /// </summary>
         [TestMethod]
         [TestTraits(Trait.AppSettings)]
         public void ConnectionStringTest()
@@ -102,6 +107,54 @@ namespace JsonTestProject
             Assert.IsTrue(result == NorthWindConnectionString);
         }
 
+        /// <summary>
+        /// Example to test reading json from a web address
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        [TestTraits(Trait.JsonPlaceHolder)]
+        public async Task JsonPlaceHolder_Get_User()
+        {
+            using HttpClient client = new()
+            {
+                BaseAddress = PlaceHolderAddress
+            };
+
+            // Get the user information.
+            var user = await client.GetFromJsonAsync<User>("users/1");
+            Console.WriteLine($"Id: {user.Id}");
+            Console.WriteLine($"Name: {user.Name}");
+            Console.WriteLine($"Username: {user.Username}");
+            Console.WriteLine($"Email: {user.Email}");
+
+            // Post a new user.
+            HttpResponseMessage response = await client.PostAsJsonAsync("users", user);
+            Console.WriteLine($"{(response.IsSuccessStatusCode ? "Success" : "Error")} - {response.StatusCode}");
+        }
+
+        /// <summary>
+        /// Example to test reading json from a web address
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        [TestTraits(Trait.JsonPlaceHolder)]
+        public async Task JsonPlaceHolder_Get_Posts()
+        {
+            using HttpClient client = new()
+            {
+                BaseAddress = PlaceHolderAddress
+            };
+
+            var userIdentifier = 1;
+            var expected = 10;
+
+            var posts = await client.GetFromJsonAsync<List<Posts>>("posts");
+            var subset = posts!.Where(post => post.UserIdentifier == userIdentifier).ToList();
+            Assert.AreEqual(subset.Count, expected, $"Expected count of {expected}");
+
+        }
+
+    
 
     }
 

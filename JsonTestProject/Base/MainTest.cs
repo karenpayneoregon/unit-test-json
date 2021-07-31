@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ContainerLibrary.Classes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,15 +14,43 @@ namespace JsonTestProject
 {
     public partial class MainTest
     {
+        /// <summary>
+        /// Used to read a json file which will be different for each test
+        /// and is set in <see cref="Initialization"/>
+        /// </summary>
         public string ReadFileName { get; set; }
+        
+        /// <summary>
+        /// File to read for <see cref="Contact"/> test
+        /// </summary>
         public string ContactSerializeFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ContactsSerialized.json");
+        
+        /// <summary>
+        /// File to read for <see cref="Customer"/> test
+        /// </summary>
         public string CustomersSerializeFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CustomersSerialized.json");
+        
+        /// <summary>
+        /// File used for PowerShell operations
+        /// </summary>
         public string ComputerDetailsFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "computerDateInfo.json");
 
+        /// <summary>
+        /// Validate connection string in <see cref="ConnectionStringTest"/>
+        /// </summary>
         public static string NorthWindConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=NorthWind2020;Integrated Security=True";
 
+        /// <summary>
+        /// For test methods <see cref="JsonPlaceHolder_Get_User"/> and <see cref="JsonPlaceHolder_Get_Posts"/>
+        /// </summary>
+        public Uri PlaceHolderAddress =>  new("https://jsonplaceholder.typicode.com");
+
+
+        /// <summary>
+        /// Code to run before specific test execute
+        /// </summary>
         [TestInitialize]
-        public async Task Initialization()
+        public void Initialization()
         {
 
             if (TestContext.TestName == nameof(ContactsDeserialize) || TestContext.TestName == nameof(ContactSerialize))
@@ -57,7 +86,7 @@ namespace JsonTestProject
         [TestCleanup]
         public void TestCleanup()
         {
-
+            // TODO
         }
         /// <summary>
         /// Perform any initialize for the class

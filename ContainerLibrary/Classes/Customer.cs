@@ -1,10 +1,12 @@
 ﻿using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace ContainerLibrary.Classes
 {
     public class Customer
     {
-        public int CustomerIdentifier { get; set; }
+        [JsonPropertyName("CustomerIdentifier")]
+        public int Identifier { get; set; }
         public string CompanyName { get; set; }
         public int ContactId { get; set; }
         public string Street { get; set; }
@@ -19,5 +21,7 @@ namespace ContainerLibrary.Classes
         public string ContactFirstName => ContactType.FirstOrDefault()?.Contacts.FirstOrDefault()?.FirstName;
         public string ContactLastName => ContactType.FirstOrDefault()?.Contacts.FirstOrDefault()?.LastName;
         #endregion
+
+        public override string ToString() => CompanyName;
     }
 }
