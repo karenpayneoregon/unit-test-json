@@ -14,11 +14,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\ConfigurationHelper\ConfigurationHelper.csproj" />
 	  <ProjectReference Include="..\ContainerLibrary\ContainerLibrary.csproj" />
 	  <ProjectReference Include="..\Json.Library\Json.Library.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  <None Update="computerDateInfo_sample.json">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </None>

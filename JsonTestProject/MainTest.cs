@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ConfigurationHelper;
 using ContainerLibrary.Classes;
 using Json.Library;
 using Json.Library.Extensions;
@@ -92,6 +93,15 @@ namespace JsonTestProject
 
 
         }
+
+        [TestMethod]
+        [TestTraits(Trait.AppSettings)]
+        public void ConnectionStringTest()
+        {
+            var result = Helper.ConnectionString();
+            Assert.IsTrue(result == NorthWindConnectionString);
+        }
+
 
     }
 

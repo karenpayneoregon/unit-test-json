@@ -18,6 +18,8 @@ namespace JsonTestProject
         public string CustomersSerializeFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CustomersSerialized.json");
         public string ComputerDetailsFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "computerDateInfo.json");
 
+        public static string NorthWindConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=NorthWind2020;Integrated Security=True";
+
         [TestInitialize]
         public async Task Initialization()
         {
