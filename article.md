@@ -31,19 +31,18 @@ In the class project below there are simple/generic methods which are easy to us
 
 ![img](assets/jsonClassProject.png)
 
-The following class is for concrete classes for interating with Json data both locally and from the web.
+Concrete classes for interating with Json data both locally and from the web.
 
 ![img](assets/containers.png)
 
-The following unit test project for those experienced with testing will be easy to work with while those who never written unit test before may be confusing to understand although we will step through each aspect of not just serializing and deserializing Json data but also step through the anatomy of code flow in this unit test project.
+A unit test project for those experienced with testing will be easy to work with while those who never written unit test before may be confusing to understand although we will step through each aspect of not just serializing and deserializing Json data but also step through the anatomy of code flow in this unit test project.
 
 ![imag](assets/unitTest.png)
 
 ## Unit test base classes
 
-The unit test class MainTest is setup as a partial class so that in the root level there are only test methods while under the Base folder there are properties which are reused in more than one test method. Also, MainTest implements a class responsible for instantiating an instance of [TestContext class](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting.testcontext?view=visualstudiosdk-2019) which provides access to various pieces of information like test name which in the MainTest we can perform operations prior to a test method executing or after a test method runs.
+Unit test class MainTest is setup as a partial class so that in the root level there are only test methods while under the Base folder there are properties which are reused in more than one test method. Also, MainTest implements a class responsible for instantiating an instance of [TestContext class](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting.testcontext?view=visualstudiosdk-2019) which provides access to various pieces of information like test name which in the MainTest we can perform operations prior to a test method executing or after a test method runs.
 
-In 
 
 ```csharp
 [TestInitialize]
@@ -132,7 +131,108 @@ public string WeatherFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirecto
 
 ## Serializing/deserializing test methods
 
-TODO
+All code for the following is included in class projects [ContainerLibrary](https://github.com/karenpayneoregon/unit-test-json/tree/master/ContainerLibrary) and [Json.Library](https://github.com/karenpayneoregon/unit-test-json/tree/master/Json.Library)
+
+### Basic deserializing 
+
+Where json is read in from a [file](https://github.com/karenpayneoregon/unit-test-json/blob/master/JsonTestProject/contacts.json) which creates a List&lt;[Contact](https://github.com/karenpayneoregon/unit-test-json/blob/master/ContainerLibrary/Classes/Contact.cs)&gt;
+
+```csharp
+var contactsList = JsonSerializer.Deserialize<List<Contact>>(json);
+```
+
+The above can be a language extension which means no need to write code out like above.
+
+```csharp
+List<Contact> contacts = json.JSonToList<Contact>();
+```
+
+### Basic serializing
+
+Common practice is to write code to serialize in line with code in a (when working with desktop or console projects) with code that read information from a grid control etc.
+
+Doing serializing this way means
+
+- Duplicate code for each place serializing is needed
+- When copying to another project and code reqirements change creates additional work to fix each place said code is used.
+
+A better way is to place the code into a class project where all methods are generic such as the one for SSSSS.
+
+
+```csharp
+/// <summary>
+/// Save List&lt;T&gt; to file
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <param name="sender">Type to save</param>
+/// <param name="fileName">File to save too</param>
+/// <param name="format">true to format json, false not to format json</param>
+/// <returns>
+/// name value tuple, success of operation and a exception on failure
+/// </returns>
+public static (bool result, Exception exception) JsonToFile<T>(this T sender, string fileName, bool format = true)
+{
+
+    try
+    {
+        /*
+         * explore other options besides WriteIndented
+         */
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+        
+        File.WriteAllText(fileName, JsonSerializer.Serialize(sender, format ? options : null));
+
+        return (true, null);
+
+    }
+    catch (Exception exception)
+    {
+        return (false, exception);
+    }
+
+}
+```
+
+Used against [Contact](https://github.com/karenpayneoregon/unit-test-json/blob/master/ContainerLibrary/Classes/Contact.cs)
+
+```csharp
+[TestMethod]
+[TestTraits(Trait.Serialize)]
+public void ContactSerialize()
+{
+    List<Contact> contacts = File.ReadAllText(ReadFileName).JSonToList<Contact>();
+    var (success, exception) = contacts.JsonToFile(ContactSerializeFileName);
+    Assert.IsTrue(File.Exists(ContactSerializeFileName) && success);
+}
+```
+
+Used against [Customer](https://github.com/karenpayneoregon/unit-test-json/blob/master/ContainerLibrary/Classes/Customer.cs)
+
+```csharp
+[TestMethod]
+[TestTraits(Trait.Serialize)]
+public void CustomerSerialize()
+{
+    var json = File.ReadAllText(ReadFileName);
+    List<Customer> customers = json.JSonToList<Customer>();
+
+    var singleCustomer = customers.FirstOrDefault(customer => customer.Identifier == 2);
+
+
+    singleCustomer.CompanyName = singleCustomer.CompanyName.ToLower();
+    Assert.IsTrue(singleCustomer.CompanyName == "ana trujillo emparedados y helados");
+    var (success, exception) = customers.JsonToFile(CustomersSerializeFileName);
+    Assert.IsTrue(File.Exists(CustomersSerializeFileName) && success);
+}
+```
+
+By using generics, same as deserialize operations in a single class project code is easy to use and maintain.
+
+This brings us back to unit testing the code. When changes are made in the class project there needs to be unit test for each project which uses the code above to ensure changes didn't break something.
+
 
 
 
