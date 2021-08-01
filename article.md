@@ -233,8 +233,18 @@ By using generics, same as deserialize operations in a single class project code
 
 This brings us back to unit testing the code. When changes are made in the class project there needs to be unit test for each project which uses the code above to ensure changes didn't break something.
 
+# Caveats
+
+The majority of code presented in unit test read and write to local Json files, for working with Json read from a web file see the following test methods which use a free [service](https://jsonplaceholder.typicode.com) with simple Json files.
+
+ [JsonPlaceHolder_Get_User](https://github.com/karenpayneoregon/unit-test-json/blob/master/JsonTestProject/MainTest.cs#L126) and 
+[JsonPlaceHolder_Get_Posts](https://github.com/karenpayneoregon/unit-test-json/blob/master/JsonTestProject/MainTest.cs#L151)
 
 
+
+# Summary
+
+In the article basics have been presented for serializing and deserializing to and from Json files. There is quite more to working with Json dependent on business requirement although with understanding basics will make more advance work easier.
 
 
 
