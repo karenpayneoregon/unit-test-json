@@ -9,6 +9,7 @@
         public string Catalog { get; set; }
         public bool IntegratedSecurity { get; set; }
         public bool UsingLogging { get; set; }
+
     }
 
 }

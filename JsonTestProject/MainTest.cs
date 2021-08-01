@@ -106,6 +106,16 @@ namespace JsonTestProject
             var result = Helper.ConnectionString();
             Assert.IsTrue(result == NorthWindConnectionString);
         }
+        /// <summary>
+        /// This test does not use System.Text.Json, instead Microsoft.Extensions.Configuration
+        /// </summary>
+        [TestMethod]
+        [TestTraits(Trait.AppSettings)]
+        public void UserSettingTest()
+        {
+            var result = Helpers.UserSettings();
+            Assert.IsTrue(result.User == "jandi" && result.Pass == "jandi123" && result.Server == "abc");
+        }
 
         /// <summary>
         /// Example to test reading json from a web address
@@ -159,6 +169,7 @@ namespace JsonTestProject
         /// https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-invalid-json?pivots=dotnet-5-0#allow-comments-and-trailing-commas
         /// </summary>
         [TestMethod]
+        [TestTraits(Trait.JsonPlaceHolder)]
         public void IgnoreCommentsInJson()
         {
             var jsonString = File.ReadAllText(WeatherFileName); ;
