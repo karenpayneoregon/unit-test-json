@@ -114,7 +114,7 @@ namespace JsonTestProject
         public void UserSettingTest()
         {
             var result = Helpers.UserSettings();
-            Assert.IsTrue(result.User == "jandi" && result.Pass == "jandi123" && result.Server == "abc");
+            Assert.IsTrue(result.UserName == "jandi" && result.Password == "jandi123" && result.Server == "abc");
         }
 
         /// <summary>

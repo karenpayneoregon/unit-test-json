@@ -14,8 +14,8 @@ namespace ConfigurationHelper
             
             return new UserSettings()
             {
-                User = settings.User,
-                Pass = settings.Pass,
+                UserName = settings.UserName,
+                Password = settings.Password,
                 Server = settings.Server
             };
 
