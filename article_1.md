@@ -1,6 +1,5 @@
-# About 
+# Working with Json using [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/api/system.text.json?view=net-5.0) 
 
-Working with Json using [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/api/system.text.json?view=net-5.0) 
 
 If you have been working with Json data for years most likely the choice library was NewtonSoft.Json installed from [NuGet package](https://www.nuget.org/packages/Newtonsoft.Json/).
 
