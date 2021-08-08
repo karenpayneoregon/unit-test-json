@@ -61,14 +61,14 @@ namespace Json.Library.Extensions
         /// <summary>
         /// Deserialize from Json string to TModel using <see cref="UnixEpochLocalDateTimeConverter"/>
         /// </summary>
-        /// <typeparam name="TModel">Type to deserialize Json to</typeparam>
+        /// <typeparam name="T">Type to deserialize Json to</typeparam>
         /// <param name="json">Valid json for deserialize TModel too.</param>
         /// <returns>single instance of TModel</returns>
-        public static TModel DeserializeObjectUnixEpochDateTime<TModel>(string json)
+        public static T DeserializeObjectUnixEpochDateTime<T>(string json)
         {
             JsonSerializerOptions options = new();
             options.Converters.Add(new UnixEpochDateTimeConverter());
-            return JsonSerializer.Deserialize<TModel>(json, options);
+            return JsonSerializer.Deserialize<T>(json, options);
 
         }
 

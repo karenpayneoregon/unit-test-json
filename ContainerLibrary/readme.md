@@ -1,4 +1,6 @@
 ﻿# About
 
-For upcoming article in August 2021
+Contains `concrete classes` for serializing and deserializing `json` data.
+
+![img](assets/containerLib.png)
 
