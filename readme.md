@@ -1,8 +1,9 @@
+![img](assets/title_1.png)
 # Basic unit test for deserialize and serializing common Json using System.Text.Json
 
 Learn how to work with [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/api/system.text.json?view=net-5.0) which is an option rather than [NewtonSoft.Json](https://www.newtonsoft.com/json) in the article link below.
 
-![img](assets/title_1.png)
+
 
 # Read Article
 
