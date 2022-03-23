@@ -10,7 +10,8 @@ namespace JsonTestProject.Base
         Deserialize,
         Serialize,
         AppSettings,
-        JsonPlaceHolder
+        JsonPlaceHolder,
+        Scores
     }
     /// <summary>
     /// Declarative class for using Trait enum about for traits on test method.

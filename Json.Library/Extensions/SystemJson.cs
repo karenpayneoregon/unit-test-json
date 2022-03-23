@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Json.Library.Converters;
 
+
 namespace Json.Library.Extensions
 {
     /// <summary>
@@ -27,7 +28,7 @@ namespace Json.Library.Extensions
         /// <summary>
         /// Save List&lt;T&gt; to file
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Type</typeparam>
         /// <param name="sender">Type to save</param>
         /// <param name="fileName">File to save too</param>
         /// <param name="format">true to format json, false not to format json</param>
@@ -39,9 +40,6 @@ namespace Json.Library.Extensions
 
             try
             {
-                /*
-                 * explore other options besides WriteIndented
-                 */
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true
@@ -59,18 +57,16 @@ namespace Json.Library.Extensions
 
         }
         /// <summary>
-        /// Deserialize from Json string to TModel using <see cref="UnixEpochLocalDateTimeConverter"/>
+        /// Deserialize from Json string to TModel using <see cref="UnixEpochDateTimeOffsetConverter"/>
         /// </summary>
         /// <typeparam name="T">Type to deserialize Json to</typeparam>
-        /// <param name="json">Valid json for deserialize TModel too.</param>
-        /// <returns>single instance of TModel</returns>
+        /// <param name="json">Valid json for deserialize T too.</param>
+        /// <returns>single instance of T</returns>
         public static T DeserializeObjectUnixEpochDateTime<T>(string json)
         {
             JsonSerializerOptions options = new();
             options.Converters.Add(new UnixEpochDateTimeConverter());
             return JsonSerializer.Deserialize<T>(json, options);
-
         }
-
     }
 }
