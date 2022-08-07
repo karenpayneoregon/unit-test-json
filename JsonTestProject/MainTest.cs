@@ -12,6 +12,7 @@ using Json.Library;
 using Json.Library.Extensions;
 using JsonTestProject.Base;
 using JsonTestProject.Classes;
+using JsonTestProject.FakeGeneratorClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JsonTestProject
@@ -141,6 +142,52 @@ namespace JsonTestProject
             HttpResponseMessage response = await client.PostAsJsonAsync("users", user);
             Console.WriteLine($"{(response.IsSuccessStatusCode ? "Success" : "Error")} - {response.StatusCode}");
         }
+
+        /// <summary>
+        /// https://fakerapi.it/en/
+        /// Not a test just yet TODO
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        [TestTraits(Trait.JsonPlaceHolder)]
+        public async Task CreateFakeListOfPeopleTest()
+        {
+            List<Datum> list = new();
+
+            using HttpClient client = new()
+            {
+                BaseAddress = new Uri("https://fakerapi.it/api/v1/")
+            };
+
+            var fakeMales = await client.GetFromJsonAsync<FakePersonRoot>(FakerOperations.CreateMalePeople(10, new DateTime(1956,1,1)));
+            var fakeFemales = await client.GetFromJsonAsync<FakePersonRoot>(FakerOperations.CreateFemalePeople(10, new DateTime(1945,1,1)));
+
+            foreach (var item in fakeMales.data)
+            {
+                list.Add(item);
+            }
+
+            foreach (var item in fakeFemales.data)
+            {
+                list.Add(item);
+            }
+
+            list.Shuffle();
+
+            // since both list have the same id's we need to fix that
+            for (int index = 0; index < list.Count; index++)
+            {
+                list[index].id = index + 1;
+            }
+
+            
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{item.id} {item.FirstName} {item.LastName} {item.Gender} {item.BirthDate:d}");
+                Console.WriteLine($"\t{item.Address.street} {item.Address.city} {item.Address.country} {item.Address.zipcode}");
+            }
+        }
+
 
         /// <summary>
         /// Example to test reading json from a web address
