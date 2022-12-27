@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigurationHelper", "Conf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OED Training", "OED Training", "{4C4B26D3-F905-46A9-8A14-AD73C3B5DE7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateJson", "GenerateJson\GenerateJson.csproj", "{A8B4D768-0638-4A56-826F-31D7104383B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateJson", "GenerateJson\GenerateJson.csproj", "{A8B4D768-0638-4A56-826F-31D7104383B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseUnitTestProject1", "BaseUnitTestProject1\BaseUnitTestProject1.csproj", "{43C9F8EF-3256-476A-8BED-30E1C1712F89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{A8B4D768-0638-4A56-826F-31D7104383B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8B4D768-0638-4A56-826F-31D7104383B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8B4D768-0638-4A56-826F-31D7104383B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C9F8EF-3256-476A-8BED-30E1C1712F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C9F8EF-3256-476A-8BED-30E1C1712F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C9F8EF-3256-476A-8BED-30E1C1712F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C9F8EF-3256-476A-8BED-30E1C1712F89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{520ED2E1-4513-4953-B24A-D9311ED2BB0F} = {0D402B7E-B3CF-43C3-A364-85AEC5690A9C}
 		{FEAED0D8-476F-4B77-9CCF-4FEE53E18BA3} = {AF7F9AA1-4B93-486A-9793-559D18497D8D}
 		{A8B4D768-0638-4A56-826F-31D7104383B3} = {4C4B26D3-F905-46A9-8A14-AD73C3B5DE7E}
+		{43C9F8EF-3256-476A-8BED-30E1C1712F89} = {0D402B7E-B3CF-43C3-A364-85AEC5690A9C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2415F93F-8DDB-4843-9A13-2CF9150D5E9F}
